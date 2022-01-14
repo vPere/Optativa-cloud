@@ -1,0 +1,5 @@
+Andrea Fernández Rodríguez
+La unica experiencia laboral que tengo son 4 meses en practicas, aquí he tocado un poquito de AWS.
+He usado un poco de Docker.
+afernandezro@edu.tecnocampus.cat
+Lo que espero de la assignatura es aprender cosas de kubernetes, dockers i AWS.
