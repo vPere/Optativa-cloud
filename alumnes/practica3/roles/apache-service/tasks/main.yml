@@ -1,0 +1,39 @@
+---
+- name: instalar Epel
+  yum: 
+    name: epel-release 
+    state: latest
+
+- name: instalar apache
+  yum: 
+    name: httpd 
+    state: latest
+
+- name: Require all denied change
+  replace:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: "Require all denied"
+    replace: "Require all granted"
+
+- name: start service httpd
+  service: 
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: habilitar firewall para http
+  firewalld: 
+    service: http
+    permanent: yes 
+    state: enabled 
+    immediate: yes
+
+- name: create a directory
+  file:
+    path: /var/www/html
+    state: directory
+
+- name: create a file
+  file: 
+    dest: /var/www/html/index.html
+    content: "Web server managed by Ansible" 

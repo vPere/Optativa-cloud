@@ -1,0 +1,6 @@
+---
+- name: Practica 3
+  hosts: workers
+  remote_user: root
+  roles:
+    - apache-service 
