@@ -1,0 +1,9 @@
+---
+- name: Importar fichero variables
+  include_vars:
+    file: ../vars/users.yml
+
+- name: Create users
+  user:
+    name: "{{ item.user }}"
+  with_items: "{{ usersList }}"

@@ -1,0 +1,6 @@
+---
+- name: Practica 2
+  hosts: workers
+  remote_user: root
+  roles:
+    - users
