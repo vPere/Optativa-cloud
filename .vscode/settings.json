@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-playbook.json": "file:///root/Optativa-cloud/alumnes/practica1/practica1.yaml"
+  }
+}

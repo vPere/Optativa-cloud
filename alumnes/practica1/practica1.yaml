@@ -1,0 +1,6 @@
+- name: Install Nginx download file from git and restart service
+  hosts: workers
+  remote_user: root
+
+  roles:
+    - nginx
