@@ -22,8 +22,9 @@
 
 - name: Add firewall exception
   firewalld:
-    service: https
+    service: http
     permanent: yes
+    immediate: yes
     state: enabled
 
 - name: Restart nginx
