@@ -1,0 +1,38 @@
+- name: install EPEL repo
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install apache
+  yum:
+    name: httpd
+    state: present
+
+- name: Change configuration
+  ansible.builtin.replace:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: "Require all denied"
+    replace: "Require all granted"
+
+- name: Create dir
+  ansible.builtin.file:
+    path: /var/www/html
+    state: directory
+
+- name: Create file
+  ansible.builtin.copy:
+    dest: /var/www/html/index.html
+    content: "Web server managed by Ansible"
+
+- name: "web Server start"
+  service:
+    name: "httpd"
+    state: started
+    enabled: yes
+
+- name: Add firewall exception
+  firewalld:
+    service: http
+    permanent: yes
+    immediate: yes
+    state: enabled

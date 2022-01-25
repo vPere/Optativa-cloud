@@ -1,0 +1,19 @@
+- name: Check status
+  ansible.builtin.uri:
+    url: http://localhost
+    return_content: yes
+  register: response
+
+- name: Status Code
+  ansible.builtin.debug:
+    msg: "{{ response.status }}"
+
+- name: Content is right
+  ansible.builtin.debug:
+    msg: "Content is right"
+  when: response.content == "Web server managed by Ansible"
+
+- name: Content has errors
+  ansible.builtin.debug:
+    msg: "Content has errors"
+  when: response.content != "Web server managed by Ansible"

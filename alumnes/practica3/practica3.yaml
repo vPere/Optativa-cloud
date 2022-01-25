@@ -1,0 +1,6 @@
+- name: Setup and check apache server
+  hosts: workers
+  remote_user: root
+  roles:
+    - apache-setup
+    - check-status
