@@ -20,5 +20,11 @@
     remote_src: true
     dest: /usr/share/nginx/html/index.html
 
+- name: Add firewall exception
+  firewalld:
+    service: https
+    permanent: yes
+    state: enabled
+
 - name: Restart nginx
   service: name=nginx state=restarted enabled=yes
