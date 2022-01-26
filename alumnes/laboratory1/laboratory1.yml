@@ -1,0 +1,6 @@
+- name: Laboratory1
+  hosts: workers
+  remote_user: root
+
+  roles:
+    - nginx
