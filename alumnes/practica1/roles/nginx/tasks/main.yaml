@@ -1,0 +1,37 @@
+- name: Install EPEL
+  yum: 
+    name: epel-release
+    state: present
+
+- name: Install nginx
+  yum: 
+    name: nginx
+    state: present
+
+- name: Install GIT
+  yum: 
+    name: git
+    state: present
+
+- name: Clone a repo with separate git directory
+  ansible.builtin.git:
+    repo: https://github.com/Josep-Andreu/Optativa-cloud.git
+    clone: yes
+    update: yes
+    dest: ./files
+
+- name: Copy file idex.html
+  ansible.builtin.copy:
+    src: ./files/index.html
+    dest: /usr/share/nginx/html/index.html
+    remote_src: true
+
+- name: Making it accessible
+  firewalld:
+    service: http
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Restart nginx
+  service: name=nginx state=restarted enabled=yes
