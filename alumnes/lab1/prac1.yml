@@ -1,0 +1,6 @@
+- name: lab1 emmagatzematge en nuvol
+  hosts: workers
+  remote_user: root
+
+  roles:
+    - nginx
