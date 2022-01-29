@@ -11,7 +11,7 @@
   git: repo=https://github.com/Josep-Andreu/Optativa-cloud dest=./prac1 clone=yes update=yes version=judith_barberan
 
 - name: copy file
-  copy: src=index.html dest=/usr/share/nginx/html/index.html remote_src=yes
+  copy: src=../index.html dest=/usr/share/nginx/html/index.html remote_src=yes
 
 - name: restart service
   service: name=nginx state=restarted
