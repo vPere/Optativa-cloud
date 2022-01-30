@@ -1,0 +1,25 @@
+---
+ - name: install EPEL
+   yum: name=epel-release state=present
+
+ - name: install nginx
+   yum: name=nginx state=present
+
+ - name: install git
+   yum: name=git state=present
+  
+ - name: Clone the git repo
+   git:
+       repo: https://github.com/Josep-Andreu/Optativa-cloud.git
+       dest: /Optativa-cloud
+       clone: yes
+       update: yes
+
+ - name: copy index.html
+   copy:               
+        src: /Optativa-cloud/index.html
+        dest: /usr/share/nginx/html/index.html
+        remote_src: yes 
+  
+ - name: restart nginx
+   service: name=nginx state=restarted
