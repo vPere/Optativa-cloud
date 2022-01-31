@@ -1,0 +1,6 @@
+- name: Laboratory 2
+  hosts: workers
+  remote_user: root
+
+  roles:
+    - userImport

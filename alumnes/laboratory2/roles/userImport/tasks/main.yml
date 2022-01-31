@@ -1,0 +1,8 @@
+- name: load variables from the specified file
+  include_vars:
+    file: ../vars/exampleUsers.yml
+
+- name: user creation
+  user:
+    name: "{{ item.user }}"
+  with_items: "{{ userList }}"
