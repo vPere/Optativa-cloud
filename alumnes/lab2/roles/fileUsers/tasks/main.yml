@@ -6,3 +6,4 @@
 - name: Create users from file
   user:
     name: "{{ users.user }}"
+  with_items: "{{ users }}"
