@@ -5,4 +5,4 @@
 
 - name: Create users from file
   user:
-    name: {{ users.user }}
+    name: "{{ users.user }}"

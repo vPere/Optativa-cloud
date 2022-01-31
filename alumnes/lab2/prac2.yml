@@ -1,5 +1,7 @@
 - name: Create users from a yml file
   hosts: workers
   remote_user: root
+
   roles:
     - fileUsers
+    
