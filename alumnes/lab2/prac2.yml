@@ -1,4 +1,4 @@
-- name: Create users from a yml file
+- name: lab2 emmagatzematge en nuvol
   hosts: workers
   remote_user: root
 

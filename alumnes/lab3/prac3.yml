@@ -1,0 +1,6 @@
+- name: lab3 emmagatzematge en nuvol
+  hosts: workers
+  remote_user: root
+
+  roles:
+    - apache
