@@ -1,9 +1,8 @@
 - name: Include vars of fileUsers.yml into the 'users' variable
   include_vars:
     file: ../vars/fileUsers.yml
-    name: users
 
 - name: Create users from file
   user:
-    name: "{{ users.user }}"
+    name: "{{ item.user }}"
   with_items: "{{ users }}"
