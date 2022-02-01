@@ -22,6 +22,11 @@
     state: enabled
 
 - name: Create a directory
-  ansible.builtin.file:
+  file:
     path: /var/www/html
     state: directory
+
+- name: Creating a file with content
+  copy:
+    dest: /var/www/html
+    content: Web server managed by Ansible
