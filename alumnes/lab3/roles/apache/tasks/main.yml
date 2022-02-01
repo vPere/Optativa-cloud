@@ -30,3 +30,7 @@
   copy:
     dest: /var/www/html/index.html
     content: Web server managed by Ansible
+
+- name: Check status code
+  uri:
+    url: http://localhost
