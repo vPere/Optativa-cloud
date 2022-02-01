@@ -3,3 +3,9 @@
 
 - name: Install apache
   yum: name=httpd state=present
+
+- name: Changing httpd.conf file
+  replace:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: 'Require all denied'
+    replace: 'Require all granted'
