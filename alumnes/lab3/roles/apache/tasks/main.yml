@@ -34,3 +34,4 @@
 - name: Check status code
   uri:
     url: http://localhost
+    return_content: yes
