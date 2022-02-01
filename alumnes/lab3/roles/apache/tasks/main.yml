@@ -20,3 +20,9 @@
     service: https
     permanent: yes
     state: enabled
+
+- name: Create a directory
+  ansible.builtin.file:
+    src: /var/www/html
+    state: directory
+    
