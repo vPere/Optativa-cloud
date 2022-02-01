@@ -10,9 +10,13 @@
     regexp: 'Require all denied'
     replace: 'Require all granted'
 
-- name: Enable http
+- name: Start service httpd, if not started
+  service:
+    name: httpd
+    state: started
+
+- name: Enable firewalld
   firewalld:
-    service: httpd
+    service: https
     permanent: yes
     state: enabled
-    
