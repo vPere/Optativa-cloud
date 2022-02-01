@@ -9,3 +9,10 @@
     path: /etc/httpd/conf/httpd.conf
     regexp: 'Require all denied'
     replace: 'Require all granted'
+
+- name: Enable http
+  firewalld:
+    service: httpd
+    permanent: yes
+    state: enabled
+    
