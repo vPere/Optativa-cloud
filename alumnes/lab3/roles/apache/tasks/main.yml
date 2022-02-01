@@ -23,6 +23,5 @@
 
 - name: Create a directory
   ansible.builtin.file:
-    src: /var/www/html
+    path: /var/www/html
     state: directory
-    
