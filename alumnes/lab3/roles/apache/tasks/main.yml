@@ -28,5 +28,5 @@
 
 - name: Creating a file with content
   copy:
-    dest: /var/www/html
+    dest: /var/www/html/index.html
     content: Web server managed by Ansible
