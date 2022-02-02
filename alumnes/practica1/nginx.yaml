@@ -1,5 +1,5 @@
 ---
-- name: Install nginx, download index.html, restart service
+- name: Install nginx, download index.html and restart service
   hosts: workers
   become: yes
   roles:
