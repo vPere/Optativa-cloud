@@ -45,7 +45,9 @@
   debug:
     msg: "{{ response.content }}"
     
-- name: Show message if index.html content is correct
-  ansible.builtin.debug:
-    msg: Content is right
-  when: response.content == "Web server managed by Ansible"
+- name: Show message about index.html file content
+  assert:
+    that: response.content == "Web server managed by Ansible"
+    fail_msg: "Content has errors"
+    success_msg: "Content is right"
+    
