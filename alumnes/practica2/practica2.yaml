@@ -1,0 +1,5 @@
+- name: create n users from file
+  hosts: workers
+  remote_user: root
+  roles:
+    - users
