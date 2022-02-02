@@ -1,0 +1,43 @@
+- name: install Epel
+  yum: 
+    name: epel-release
+    state: latest
+
+- name: install Apache server
+  yum:
+    name: httpd
+    state: latest
+
+- name: replace line configuration
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: 'Require all denied'
+    line: 'Require all granted'
+    backrefs: yes
+
+- name: start Apache server
+  service:
+    name: httpd
+    state: started
+
+- name: enable http firewall
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+
+- name: create directory
+  file:
+    path: /var/www/html
+    state: directory
+
+- name: create file index.html
+  copy:
+    dest: /var/www/html/index.html
+    content: Web server managed by Ansible
+
+- name: check status_code web server
+  uri:
+    url: http://localhost
+    return_content: yes
+  register: response
