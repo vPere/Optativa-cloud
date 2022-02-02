@@ -1,53 +1,57 @@
-- name: Install EPEL
-  yum: name=epel-release state=present
+- name: lab3
+  block:
+  - name: Install EPEL
+    yum: name=epel-release state=present
 
-- name: Install apache
-  yum: name=httpd state=present
+  - name: Install apache
+    yum: name=httpd state=present
 
-- name: Changing httpd.conf file
-  replace:
-    path: /etc/httpd/conf/httpd.conf
-    regexp: 'Require all denied'
-    replace: 'Require all granted'
+  - name: Changing httpd.conf file
+    replace:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: 'Require all denied'
+      replace: 'Require all granted'
 
-- name: Start service httpd, if not started
-  service:
-    name: httpd
-    state: started
+  - name: Start service httpd, if not started
+    service:
+      name: httpd
+      state: started
 
-- name: Enable firewalld
-  firewalld:
-    service: https
-    permanent: yes
-    state: enabled
+  - name: Enable firewalld
+    firewalld:
+      service: https
+      permanent: yes
+      state: enabled
 
-- name: Create a directory
-  file:
-    path: /var/www/html
-    state: directory
+  - name: Create a directory
+    file:
+      path: /var/www/html
+      state: directory
 
-- name: Creating a file with content
-  copy:
-    dest: /var/www/html/index.html
-    content: Web server managed by Ansible
+  - name: Creating a file with content
+    copy:
+      dest: /var/www/html/index.html
+      content: Web server managed by Ansible
 
-- name: Get status code
-  uri:
-    url: http://localhost
-    return_content: yes
-  register: response
+  - name: Get status code
+    uri:
+      url: http://localhost
+      return_content: yes
+    register: response
 
-- name: Show status code
-  debug:
-    msg: "{{ response.status }}"
+  - name: Show status code
+    debug:
+      msg: "{{ response.status }}"
 
-- name: Show web content
-  debug:
-    msg: "{{ response.content }}"
-    
-- name: Show message about index.html file content
-  assert:
-    that: response.content == "Web server managed by Ansible"
-    fail_msg: "Content has errors"
-    success_msg: "Content is right"
-    
+  - name: Show web content
+    debug:
+      msg: "{{ response.content }}"
+      
+  - name: Show message about index.html file content
+    assert:
+      that: response.content == "Web server managed by Ansible"
+      fail_msg: "Content has errors"
+      success_msg: "Content is right"
+
+  when: ansible_facts.memfree_mb > 700
+  
