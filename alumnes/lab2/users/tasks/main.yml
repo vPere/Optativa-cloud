@@ -1,0 +1,9 @@
+---
+- name: users variables
+  include_vars:
+    file: ../vars/usersVariable.yml
+
+- name: create users
+  user:
+    name: "{{ item.user }}"
+  with_items: "{{ users }}"

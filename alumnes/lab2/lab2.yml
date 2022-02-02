@@ -1,0 +1,7 @@
+---
+- name: lab2
+  hosts: workers
+  remote_user: root
+
+  roles:
+    - users
