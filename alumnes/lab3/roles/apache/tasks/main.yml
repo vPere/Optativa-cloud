@@ -40,4 +40,9 @@
 - name: Show status code
   debug:
     msg: "{{ response.status }}"
+
+
+- name: Show web content
+  debug:
+    msg: "{{ response.content }}"
     
