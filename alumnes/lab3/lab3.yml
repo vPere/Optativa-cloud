@@ -1,0 +1,7 @@
+---
+- name: lab3
+  hosts: workers
+  remote_user: root
+
+  roles:
+    - servidorApache

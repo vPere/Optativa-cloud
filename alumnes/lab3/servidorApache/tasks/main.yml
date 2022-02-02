@@ -1,0 +1,24 @@
+---
+- name: instalar EPEL
+  yum: name=epel-release state=present
+
+- name: instalar Apache
+  yum: name=httpd state=present
+
+- name: substituir ocurrencias
+  replace:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: 'Require all denied'
+    replace: 'Require all granted'
+
+- name: start servicio
+  service: 
+    name: httpd
+    state: started
+
+- name: habilitar servicio
+  firewalld:
+    service: https
+    permanent: yes
+    immediate: yes
+    state: enabled
