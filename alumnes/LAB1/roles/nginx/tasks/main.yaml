@@ -1,0 +1,29 @@
+- name: Install nginx
+  yum:
+    name: nginx
+    state: latest
+
+- name: Install GIT
+  yun:
+    name: git
+    state: latest
+
+- name: Clone repository
+  git:
+    repo: https://github.com/Josep-Andreu/Optativa-cloud/blob/master/index.html
+    clone: yes
+    update: yes
+    dest: ./git
+
+- name: Copy index
+  copy:
+    src: ./git/index.html
+    remote_src: true
+    dest: /usr/share/nginx/html/index.html
+
+- name: Restart service
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes
+  
