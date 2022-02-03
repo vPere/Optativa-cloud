@@ -1,0 +1,8 @@
+- name: Import File
+  include_vars: 
+    file: ../vars/users.yml
+
+- name: Create users
+  user:
+    name: {{ item.username }}
+  with_items: {{ users }}

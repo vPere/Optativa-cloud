@@ -1,0 +1,6 @@
+- name: Practica 2 ~ Create N users from file
+  hosts: workers
+  remote_user: root
+  become: yes
+  roles:
+    - users

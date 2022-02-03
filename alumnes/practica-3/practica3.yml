@@ -1,0 +1,6 @@
+- name: Pràctica 3 ~ Install and configure Apache
+  hosts: workers
+  remote_user: root
+  become: yes
+  roles:
+    - apache

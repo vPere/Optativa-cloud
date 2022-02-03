@@ -1,0 +1,6 @@
+- name: Pràctica 1 ~ Install NGINX, clone GIT, restart NGINX.
+  hosts: workers
+  remote_user: root
+  become: yes
+  roles: 
+    - nginx

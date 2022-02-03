@@ -1,0 +1,30 @@
+- name: Install Epel
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install NGINX
+  yum:
+    name: nginx
+    state: present
+
+- name: Install Git
+  yum:
+    name: git
+    state: present
+
+- name: Clone repository
+  git:
+    repo: https://github.com/EnriqueCaBe/test-cloud
+    clone: yes
+    update: yes
+    dest: ./testClone
+
+- name: File index.html to destination
+  copy:
+    src: ./testClone/test-cloud/index.html
+    remote_src: true
+    dest: /usr/share/nginx/html/index.html
+
+- name: Restart NGINX
+  service: name=nginx state=restarted enabled=yes

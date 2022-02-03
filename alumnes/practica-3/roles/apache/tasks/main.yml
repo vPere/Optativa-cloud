@@ -1,0 +1,59 @@
+- name: Practica 3
+  block:
+  - name: Install Epel
+    yum:
+      name: epel-release
+      state: present
+
+  - name: Install Apache
+    yum:
+      name: httpd
+      state: latest
+
+  - name: Replace 'Require all denied' for 'Require all granted'
+    ansible.builtin.replace:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: 'Require all denied'
+      replace: 'Require all granted'
+
+  - name: Enable the http service in the firewall
+    firewalld:
+      service: http
+      permanent: yes
+      immediate: yes
+      state: enabled
+
+  - name: Create directory
+    ansible.builtin.file:
+      path:  /var/www/html
+      state: directory
+      mode: '0755'
+
+  - name: Ansible create file with content example
+    copy:
+      dest: /var/www/html/index.html
+      content: 'Web server managed by Ansible'
+
+  - name: Start Apache
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+
+  - name: Get status_code from Web Server
+    uri:
+      url: http://localhost
+      return_content: yes
+    register: response
+
+  - name: Print the status_code
+    ansible.builtin.debug:
+      msg: "Status Code: {{ response.status }}"
+
+  - name: Check web content
+    assert:
+      that:
+        - response.content == "Web server managed by Ansible"
+      fail_msg: "Content has errors"
+      success_msg: "Content is right"
+  when: ansible_memfree_mb >= 700
