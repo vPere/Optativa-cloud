@@ -1,0 +1,9 @@
+- name: Import var file
+  include_vars:
+    file: ../vars/users.yaml
+
+-name: Create N users
+  user:
+    name: "{{ item.name }}"
+    state: present
+    with_items: "{{ users }}"
