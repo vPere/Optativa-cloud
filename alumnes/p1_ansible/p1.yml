@@ -1,0 +1,6 @@
+- name: Actualizar index en servidor NGINX 
+  hosts: workers
+  remote_user: root
+
+  roles:
+    - nginx
