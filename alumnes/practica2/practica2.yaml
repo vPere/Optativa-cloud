@@ -1,0 +1,6 @@
+- name: Create users from var file
+  hosts: workers
+  remote_user: root
+  become: yes
+  roles:
+    - users
