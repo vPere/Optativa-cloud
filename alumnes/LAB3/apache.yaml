@@ -1,0 +1,5 @@
+- name: Install apache server
+  hosts: workers
+  remote_user: root
+  roles:
+    - apache

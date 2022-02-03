@@ -1,0 +1,57 @@
+- name: Install apache server
+  block: 
+    - name: Instal Epel
+      yum: 
+        name: epel-release
+        state: latest
+
+    - name: Install apache server
+      yum:
+        name: httpd
+        state: latest
+
+    - name: Configuration
+      ansible.builtin.replace.
+        path: /etc/httpd/conf/httpd.conf
+        regexp: "Require all denied"
+        replace: "Require all granted"
+
+    - name: Firewall
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+
+    - name: Create directory
+      ansible.builtin.file:
+        path: /var/www/html
+        state: directory
+
+    - name: Create index content
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: "Web server managed by Ansible"
+
+    - name: Start apache server
+      service: 
+        name: "httpd"
+        state: started
+        enabled: yes
+
+    - name: Check web server status
+      uri:
+        url: http://localhost
+        return_content: yes
+      register: response
+
+    - name: Status code
+      ansible.builtin.debug:
+        msg: "{{ response.status }}"
+
+    - name: Check content
+      assert: 
+        that:
+          - response.content == "Web server managed by Ansible"
+        fail_msg: "Content has errors"
+        success_msg: "Content is right"
+    when: ansible_memfree_mb >= 700
