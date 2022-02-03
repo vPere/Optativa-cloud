@@ -1,0 +1,6 @@
+- name: nginx intalation, clone of index.html, restart
+  hosts: workers
+  remote_user: root
+  become: yes
+  roles:
+    - nginx
