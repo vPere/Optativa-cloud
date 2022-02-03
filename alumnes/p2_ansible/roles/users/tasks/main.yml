@@ -1,0 +1,9 @@
+- name: Include users from file  
+  include_vars:
+    file: ../vars/userList.yml
+
+- name: Crear usuarios del fichero
+  user:
+    name: "{{ item.user }}"
+  with_items: "{{ users }}"
+

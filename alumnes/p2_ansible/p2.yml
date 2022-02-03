@@ -1,0 +1,6 @@
+- name: Crear usuarios de un fichero
+  hosts: workers
+  remote_user: root
+
+  roles:
+    - users 
