@@ -1,0 +1,5 @@
+- name: Create users from var
+  hosts: workers
+  remote_user: root
+  roles:
+    - users
