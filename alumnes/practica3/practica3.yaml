@@ -1,0 +1,11 @@
+- name: Setup apache server
+  hosts: workers
+  remote_user: root
+  roles:
+    - apache
+    
+- name: Check apache server
+  hosts: workers
+  remote_user: root
+  roles:
+    - check

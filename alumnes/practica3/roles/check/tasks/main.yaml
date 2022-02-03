@@ -1,0 +1,22 @@
+- name: Check server status
+  block:
+    - name: Check
+      uri:
+        url: http://localhost
+        return_content: yes
+      register: response
+
+    - name: Get status code
+      debug:
+        msg: "{{ response.status }}"
+    
+    - name: Store web content
+      debug:
+        msg: "{{ response.content }}"
+
+    - name: Check received content
+      assert:
+        that: response.content == 'Web server managed by Ansible'
+        fail_msg: 'Content has errors'
+        success_msg: 'Content is right'
+  when: ansible_facts.memfree_mb > 700

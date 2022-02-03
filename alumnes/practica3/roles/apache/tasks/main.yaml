@@ -1,0 +1,38 @@
+- name: Install, setup and start apache
+  block:
+
+    - name: Installing apache
+      yum: name=httpd state=present
+
+    - name: Installing EPEL
+      yum: name=epel-release state=present
+    
+    - name: Configure apache
+      replace:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: "Require all denied"
+        replace: "Require all granted"
+
+    - name: Create directory
+      file:
+        path: /var/www/html
+        state: directory
+
+    - name: Create index file
+      copy:
+        dest: /var/www/html/index.html
+        content: "Web server managed by Ansible"
+
+    - name: Start the server
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+            
+    - name: Add a firewall exception
+      firewalld:
+        service: http
+        immediate: yes
+        permanent: yes
+        state: enabled
+  when: ansible_facts.memfree_mb > 700
