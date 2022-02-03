@@ -1,0 +1,55 @@
+---
+- name: lab3
+  block:
+
+  - name : install EPEL
+    yum: name=epel-release state=present
+
+  - name: install apache
+    yum: name=httpd state=present   
+
+  - name: start apache
+    service:
+        name: httpd
+        state: started
+        enabled: yes
+
+  - name: replace expressions
+    ansible.builtin.replace:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: 'Require all denied'
+        replace: 'Require all granted'
+
+  - name: enable http on firewall
+    ansible.posix.firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+
+  - name: create directory
+    ansible.builtin.file:
+        path: /var/www/html
+        state: directory
+
+  - name: create file
+    ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: "Web server managed by Ansible"
+
+  - name: save content of web server
+    ansible.builtin.uri:
+        url: http://localhost
+        return_content: yes
+    register: response
+ 
+  - name: obtain status code
+    ansible.builtin.debug:
+        msg: "{{ response.status }}"
+
+  - name: show one message or another
+    assert:
+        that: response.content == "Web server managed by Ansible"
+        success_msg: "Content is right"
+        fail_msg: "Content has errors" 
+
+  when: ansible_facts.memfree_mb > 700

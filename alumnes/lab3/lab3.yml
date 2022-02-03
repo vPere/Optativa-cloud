@@ -1,0 +1,8 @@
+---
+- name: lab3
+  hosts: workers
+  remote_user: root
+  vars:
+        ansible_ssh_private_key_file: "/home/ansible/.ssh/id_rsa"
+  roles:
+        - apache
