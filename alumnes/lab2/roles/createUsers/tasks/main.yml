@@ -1,0 +1,10 @@
+---
+- name: include vars from usersVarsFile
+  include_vars: 
+        file: ../vars/usersVarsFile.yml
+
+- name: Create users with the included vars
+  user:
+        name: "{{ item.user }}"
+        state: present 
+  with_items: "{{ users }}"
