@@ -1,0 +1,52 @@
+# LAB1:
+# Subir un fichero index.html a GIT.
+# Playbook para:
+# 1. Instalar servidor nginx.
+# 2. Descargarse el fichero index.html de GIT.
+# 3. Copiar el fichero en la ruta de lectura.
+# 4. Reiniciar el servicio.
+# Cambiar fichero en GIT.
+# Repetir el despliegue
+---
+  - name: Install Nginx Web Server
+    hosts: workers
+    remote_user: root
+    debugger: on_failed
+    become: yes
+    tasks:
+      - name: Git installed
+        yum:
+          name: git
+          state: present
+      - name: update epel-release
+        yum:
+          name: epel-release
+          state: latest
+      - name: install Nginx
+        yum:
+          name: nginx
+          state: present
+      - name: start Nginx Server
+        service:
+          name: nginx
+          state: started
+      - name: create directory repo in ~/.tmp
+        file:
+          path: ~/.tmp/repo
+          state: directory
+          mode: '0777'
+      - name: Clone ana_belen_cortes branch from Git Repository
+        git:
+          repo: https://github.com/Josep-Andreu/Optativa-cloud.git
+          dest: ~/.tmp/repo
+          clone: yes
+          version: ana_belen_cortes
+      - name: copy file into nginx
+        copy:
+          src: ~/.tmp/repo/alumnes/index.html
+          dest: /usr/share/nginx/html
+          remote_src: yes
+      - name: restart nginx service
+        service:
+          name: nginx
+          state: reloaded
