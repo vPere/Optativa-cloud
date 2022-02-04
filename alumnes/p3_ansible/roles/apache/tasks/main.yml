@@ -1,0 +1,36 @@
+- name: Installation, configuration and start apache server
+  block:
+    - name: Install Apache
+      yum:
+        name: httpd
+        state: present
+
+    - name: Change configuration httpd
+      ansible.builtin.replace:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: "Require all denied"
+        replace: "Require all granted"
+
+    - name: Create dir html
+      ansible.builtin.file:
+        path: /var/www/html
+        state: directory
+
+    - name: Create file index
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: "Web server managed by Ansible"
+
+    - name: Start Apache server
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Habilitar http en el firewall
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+  when: ansible_facts.memfree_mb > 700
+

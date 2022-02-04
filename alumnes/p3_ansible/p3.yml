@@ -1,0 +1,8 @@
+- name: Configurar servidor web
+  hosts: workers
+  remote_user: root
+  roles:
+    - setup 
+    - apache
+    - status
+
