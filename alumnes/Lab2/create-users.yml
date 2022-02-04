@@ -1,0 +1,11 @@
+# LAB1:
+# Playbook para crear n usuarios 
+# importados desde un fichero de variables
+---
+  - name: Create users from var list file
+    hosts: workers
+    remote_user: root
+    become: yes
+    roles:
+      - users
+    
