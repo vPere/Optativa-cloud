@@ -11,17 +11,17 @@
   - name: Install Nginx Web Server
     hosts: workers
     remote_user: root
-    debugger: on_failed
+    #debugger: on_failed
     become: yes
     tasks:
-      - name: Git installed
-        yum:
-          name: git
-          state: present
       - name: update epel-release
         yum:
           name: epel-release
           state: latest
+      - name: Git installed
+        yum:
+          name: git
+          state: present
       - name: install Nginx
         yum:
           name: nginx
