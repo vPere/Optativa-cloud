@@ -1,0 +1,19 @@
+# LAB3: 
+# 1. Instalar servidor apache
+# 2. Arrancar servidor apache, y habilitarlo para que arranque durante el inicio
+# 3. Substituir las ocurrencias de Require all denied por Require all granted en 
+# /etc/httpd/conf/httpd.conf (Tip: revisar modulo replace)
+# 4. Habilitar el servicio http en el firewall (Tip: módulo firewalld)
+# 5. Crear el directorio /var/www/html
+# 6. Crear el fichero /var/www/html/index.html con el contenido "Web server managed by Ansible"
+# 7. Obtener el status_code del web server (Tip: revisar módulo uri)
+# 8. Guardar el contenido de la web en una variable
+# 9. Mostrar el mensaje “Content is right” en caso de que index.html sea el valor seteado
+# 10. Mostrar el mensaje “Content has errors” en caso contrario
+# 11. Extra: hacer todo lo anterior sólo si el servidor tiene 700M de memoria libre
+- name: Install Apache server
+  hosts: workers
+  remote_user: root
+  become: yes
+  roles:
+    - apache

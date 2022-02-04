@@ -1,0 +1,59 @@
+- name: Actualitzar repository 
+  yum: 
+    name: epel-release 
+    state: present
+
+- name: Desinstalar servidor Nginx
+  yum:
+    name: nginx
+    state: absent
+
+- name: Instalar servidor apache 
+  yum:
+    name: httpd
+    state: present
+
+- name: Arrancar servidor apache, y habilitarlo para que arranque durante el inicio
+  service:
+    name: httpd
+    state: started
+
+- name: Substituir las ocurrencias de Require all denied por Require all granted en /etc/httpd/conf/httpd.conf
+  replace:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: '/Require all denied/gm'
+    replace: '/Require all granted/'
+
+- name: Habilitar el servicio http en el firewall
+  firewalld: 
+    port: 80/tcp 
+    permanent: true 
+    state: enabled 
+    immediate: yes
+
+- name: Reiniciar servei firewall per aplicar canvis
+  service:
+    name: firewalld
+    state: restarted
+
+- name: Crear el directorio /var/www/html
+  file:
+    path: /var/www/html
+    state: directory
+    mode: '0777'
+
+- name: Crear el fichero /var/www/html/index.html con el contenido "Web server managed by Ansible"
+  copy: 
+    dest: /var/www/html/index.html
+    content: 'Web server managed by Ansible'
+
+- name: Obtener el status_code del web server
+  uri: 
+    url: http://localhost
+
+#- name: Guardar el contenido de la web en una variable
+#- Mostrar el mensaje “Content is right” en caso de que index.html sea el valor seteado
+#- Mostrar el mensaje “Content has errors” en caso contrario
+#- Extra: hacer todo lo anterior sólo si el servidor tiene 700M de memoria libre
+
+    
