@@ -1,4 +1,4 @@
-FROM ubi7/ubi7:7.7
+FROM registry.access.redhat.com/ubi7:7.7
 ENV PORT=8080
 MAINTAINER Alex<atello@edu.tecnocampus.cat>
 LABEL desc="Apache custom container" 
