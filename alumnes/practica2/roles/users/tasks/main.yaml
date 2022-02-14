@@ -1,8 +1,0 @@
-- name: Include file
-  include_vars:
-    file: ../vars/users.yaml
-
-- name: Create users from the file
-  user:
-    name: "{{ item.user }}"
-  with_items: "{{ users }}"
