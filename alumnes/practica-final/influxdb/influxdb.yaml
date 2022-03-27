@@ -57,9 +57,4 @@ spec:
             volumes:
                 - name: influxdb-persistent-storage
                   persistentVolumeClaim:
-                  claimName: pvc-influxdb
-            tolerations:
-                - key: "type"
-                  operator: "Equal"
-                  value: "shared"
-                  effect: "NoExecute"
+                    claimName: pvc-influxdb

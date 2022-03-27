@@ -43,3 +43,8 @@ spec:
             - name: tomcat-persistent-storage
               persistentVolumeClaim:
                 claimName: pvc-tomcat
+            tolerations:
+                - key: "type"
+                  operator: "Equal"
+                  value: "shared"
+                  effect: "NoExecute"

@@ -6,9 +6,6 @@ spec:
   schedule: "0 1 * * *"
   jobTemplate:
     spec:
-      volumeMounts:
-        - mountPath: "var/lib/influxdb2"
-          name: influxdb-persistent-storage
       template:
         spec:
           containers:
@@ -20,4 +17,7 @@ spec:
             - -c
             - rm -rf /nfscontrol/backup
             - cp -R /nfscontrol/influxdb/. /nfscontrol/backup
+            volumeMounts:
+            - mountPath: "var/lib/influxdb2"
+              name: influxdb-persistent-storage
           restartPolicy: OnFailure
