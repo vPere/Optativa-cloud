@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-tomcat-influxdb
+  annotations:
+  labels:
+    name: web-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "influxdb.example.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/influxdb"
+        backend:
+          service:
+            name: influxdb
+            port:
+              number: 8888
+  - host: "tomcat.example.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/tomcat"
+        backend:
+          service:
+            name: tomcat
+            port:
+              number: 8080
