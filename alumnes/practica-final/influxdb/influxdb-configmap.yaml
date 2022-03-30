@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: influxdb-conf
+data:
+    user: "user-example"
+    password: "password-example"
+    organization: "example-sa"
+    bucket: "example-bucket"

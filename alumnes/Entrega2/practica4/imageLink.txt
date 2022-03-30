@@ -1,0 +1,2 @@
+My docker image can be found at:
+https://quay.io/vpere/jboss

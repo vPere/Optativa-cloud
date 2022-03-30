@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup-job
+spec:
+  schedule: "0 1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup-job
+            image: busybox
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - rm -rf /nfscontrol/backup
+            - cp -R /nfscontrol/influxdb/. /nfscontrol/backup
+            volumeMounts:
+            - mountPath: "var/lib/influxdb2"
+              name: influxdb-persistent-storage
+          restartPolicy: OnFailure
